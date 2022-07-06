@@ -5,9 +5,7 @@ class Loader extends Component {
 
     render() { 
         return (
-            <div className={s.Loader}>
-                Loader...
-            </div>
+            <div className={s.Loader}></div>
         );
     }
 }

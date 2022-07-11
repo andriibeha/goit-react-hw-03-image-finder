@@ -3,7 +3,8 @@ import s from "./Searchbar.module.css"
 
 class Searchbar extends Component {
     state = {
-        query: ''
+        query: '',
+        page: 1
     };
 
     handleQueryChange = e => {
@@ -17,8 +18,8 @@ class Searchbar extends Component {
             return 
         }
         
-        this.props.onSubmit(this.state.query)
-        this.setState({ query: "" })
+        this.props.onSubmit(this.state.query, this.state.page);
+        this.setState({ query: "", page: 1 })
     };
 
 

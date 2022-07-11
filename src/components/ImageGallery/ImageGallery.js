@@ -1,3 +1,4 @@
+import Button from "components/Button/Button";
 import ImageGalleryItem from "components/ImageGalleryItem/ImageGalleryItem";
 import Loader from "components/Loader/Loader";
 import React, { Component } from "react";
@@ -13,27 +14,46 @@ class ImageGallery extends Component {
         status: "idle"
     }
 
-     apiKey = "27740516-006db8c520e637ee9ea683b0c";
+
+    apiKey = "27740516-006db8c520e637ee9ea683b0c";
+    
      
     componentDidUpdate(prevProps, prevState) {
-        let query = this.props.query
-        const url = `https://pixabay.com/api/?q=${query }&page=1&key=${this.apiKey}&image_type=photo&orientation=horizontal&per_page=12`;
+        let query = this.props.query;
+        let page = this.props.page;
+        const url = `https://pixabay.com/api/?q=${query }&page=${page}&key=${this.apiKey}&image_type=photo&orientation=horizontal&per_page=12`;
 
-        if (prevProps.query !== this.props.query) {
+        if (prevProps.query !== this.props.query || prevProps.page !== this.props.page) {
+            
+            /* if (prevProps.query === this.props.query && prevProps.page !== this.props.page) {
+
+                this.setState({ status: "pending" })
+
+                fetchImage(url)
+                    .then(data =>
+                        this.setState(prevState => ({
+                            listImage: prevState.listImage.push(data.hits),
+                            status: "resolve"
+                        })))
+                .catch(error => this.setState({error: error, status: "rejected"})) 
+                .finally(() => this.setState({loading: false}))
+            }; */
+
             this.setState({ status: "pending" })
+
             
             fetchImage(url)
-            .then(data => 
-            this.setState({
-                listImage: data.hits,
-                status: "resolve"
-            }))
+                .then(data =>
+                    this.setState({
+                    listImage: data.hits,
+                    status: "resolve"}))
             .catch(error => this.setState({error: error, status: "rejected"})) 
             .finally(() => this.setState({loading: false}))
         }
+
+
     }
 
-    
 
     render() { 
         const { listImage, status } = this.state;
@@ -57,6 +77,7 @@ class ImageGallery extends Component {
             return (
                 <ul className={s.ImageGallery}>
                     {listImage.map((item) => (<ImageGalleryItem key={item.id} item={item} />))}
+                    <Button onClickMore={this.props.onClickMore} />
                 </ul>
             )
         };

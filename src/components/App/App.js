@@ -10,19 +10,24 @@ import Modal from "components/Modal/Modal";
 class App extends Component { 
   state = {
     query: "",
+    page: 1
   }
   
-  handleFormSubmit = query => {
-    this.setState({query})
+  handleFormSubmit = (query, page) => {
+    this.setState({ query, page});
+  }
+
+  handleClickLoadMore = () => {
+    this.setState(prevState => ({page: prevState.page + 1}))
   }
 
   render() { 
-    const { query } = this.state;
+    const { query, page } = this.state;
     return (
       <div className={s.App}>
         <Searchbar onSubmit={this.handleFormSubmit} />
         
-        <ImageGallery query={query} />
+        <ImageGallery query={query} page={page} onClickMore={this.handleClickLoadMore} />
 
         {/* <Button /> */}
         {/* <Modal /> */}

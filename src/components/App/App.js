@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Searchbar from "components/Searchbar/Searchbar";
 import ImageGallery from "components/ImageGallery/ImageGallery";
 import s from "./App.module.css"
-import Button from "components/Button/Button";
-import Modal from "components/Modal/Modal";
+/* import Button from "components/Button/Button";
+import Modal from "components/Modal/Modal"; */
 
 
 

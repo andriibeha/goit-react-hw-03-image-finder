@@ -1,22 +1,20 @@
+import React, { Component } from "react";
 import Button from "components/Button/Button";
 import ImageGalleryItem from "components/ImageGalleryItem/ImageGalleryItem";
 import Loader from "components/Loader/Loader";
-import React, { Component } from "react";
 import fetchImage from "services/api";
-import s from "./ImageGallery.module.css"
 
+import s from "./ImageGallery.module.css"
 
 
 class ImageGallery extends Component {
     state = {
         listImage: [],
         error: null,
-        status: "idle"
+        status: "idle",
     }
 
-
     apiKey = "27740516-006db8c520e637ee9ea683b0c";
-    
      
     componentDidUpdate(prevProps, prevState) {
         let query = this.props.query;
@@ -25,8 +23,6 @@ class ImageGallery extends Component {
 
         if (prevProps.query !== this.props.query || prevProps.page !== this.props.page) {
             if (prevProps.query === this.props.query && prevProps.page !== this.props.page) {
-                console.log("Виклик в другому if")
-                console.log(this.state.listImage)
                 this.setState({ status: "pending" })
 
                 fetchImage(url)
@@ -37,14 +33,11 @@ class ImageGallery extends Component {
                         })))
                 .catch(error => this.setState({error: error, status: "rejected"})) 
                     .finally(() => this.setState({ loading: false }))
-                console.log(this.state.listImage)
                 return
                 
             };
-            console.log("Виклик в першому if")
             this.setState({ status: "pending" })
 
-            
             fetchImage(url)
                 .then(data =>
                     this.setState({
@@ -54,13 +47,13 @@ class ImageGallery extends Component {
             .finally(() => this.setState({loading: false}))
         }
 
+    };
 
-    }
+    
 
 
     render() { 
-        const { listImage, status } = this.state;
-
+        const { listImage, status, showModal } = this.state;
         if (status === "idle") { 
             return (
                 <ul className={s.ImageGallery}>

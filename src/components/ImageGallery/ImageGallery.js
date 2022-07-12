@@ -9,7 +9,7 @@ import s from "./ImageGallery.module.css"
 
 class ImageGallery extends Component {
     state = {
-        listImage: null,
+        listImage: [],
         error: null,
         status: "idle"
     }
@@ -24,21 +24,23 @@ class ImageGallery extends Component {
         const url = `https://pixabay.com/api/?q=${query }&page=${page}&key=${this.apiKey}&image_type=photo&orientation=horizontal&per_page=12`;
 
         if (prevProps.query !== this.props.query || prevProps.page !== this.props.page) {
-            
-            /* if (prevProps.query === this.props.query && prevProps.page !== this.props.page) {
-
+            if (prevProps.query === this.props.query && prevProps.page !== this.props.page) {
+                console.log("Виклик в другому if")
+                console.log(this.state.listImage)
                 this.setState({ status: "pending" })
 
                 fetchImage(url)
                     .then(data =>
-                        this.setState(prevState => ({
-                            listImage: prevState.listImage.push(data.hits),
+                        this.setState(({listImage}) => ({
+                            listImage: [...listImage, ...data.hits],
                             status: "resolve"
                         })))
                 .catch(error => this.setState({error: error, status: "rejected"})) 
-                .finally(() => this.setState({loading: false}))
-            }; */
-
+                    .finally(() => this.setState({ loading: false }))
+                console.log(this.state.listImage)
+                
+            };
+            console.log("Виклик в першому if")
             this.setState({ status: "pending" })
 
             

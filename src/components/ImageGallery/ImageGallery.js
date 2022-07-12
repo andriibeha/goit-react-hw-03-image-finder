@@ -38,6 +38,7 @@ class ImageGallery extends Component {
                 .catch(error => this.setState({error: error, status: "rejected"})) 
                     .finally(() => this.setState({ loading: false }))
                 console.log(this.state.listImage)
+                return
                 
             };
             console.log("Виклик в першому if")

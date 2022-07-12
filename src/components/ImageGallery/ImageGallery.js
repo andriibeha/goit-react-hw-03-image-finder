@@ -53,7 +53,7 @@ class ImageGallery extends Component {
 
 
     render() { 
-        const { listImage, status, showModal } = this.state;
+        const { listImage, status } = this.state;
         if (status === "idle") { 
             return (
                 <ul className={s.ImageGallery}>

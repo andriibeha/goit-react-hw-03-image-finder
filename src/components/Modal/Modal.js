@@ -20,14 +20,11 @@ class Modal extends Component {
         }
     };
 
-    handleClickBackdrop = e => { 
-            console.log(e.target)
-            console.log(e.curentTarget)
-        if (e.target === e.curentTarget) { 
-            
+    handleClickBackdrop = e => {
+        if (e.target.nodeName !== 'IMG') {
             this.props.onClose()
         }
-    }
+    };
 
     render() { 
         return createPortal(

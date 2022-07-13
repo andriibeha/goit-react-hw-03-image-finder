@@ -36,6 +36,7 @@ class ImageGallery extends Component {
                 return
                 
             };
+
             this.setState({ status: "pending" })
 
             fetchImage(url)
@@ -45,12 +46,9 @@ class ImageGallery extends Component {
                     status: "resolve"}))
             .catch(error => this.setState({error: error, status: "rejected"})) 
             .finally(() => this.setState({loading: false}))
-        }
+        };
 
     };
-
-    
-
 
     render() { 
         const { listImage, status } = this.state;
@@ -64,6 +62,7 @@ class ImageGallery extends Component {
         if (status === "pending") { 
             return (
                 <ul className={s.ImageGallery}>
+                    {listImage.map((item) => (<ImageGalleryItem key={item.id} item={item} />))}
                     <Loader />
                 </ul>
             )
@@ -89,9 +88,3 @@ class ImageGallery extends Component {
 }
  
 export default ImageGallery;
-
-/* 
-{error && <h1>{error.message}</h1>}
-{loading && <Loader />}
-{listImage && listImage.map((item) => (<ImageGalleryItem key={item.id} item={item} />)) } 
-*/
